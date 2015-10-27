@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!--
+Made by Sprabuni, 2015
+This is format for a form I'm writing in my free time
+-->
+<?php
+$voornaam = "";
+$achternaam = "";
+$email = "";
+IF (isset($_GET["verwerk"])) {
+    IF (isset($_GET["voornaam"]) && isset($_GET["achternaam"]) &&
+            isset($_GET["email"]) && isset($_GET["wachtwoord"]) &&
+            isset($_GET["wachtwoord2"])) {
+        $voornaam = $_GET["voornaam"];
+        $achternaam = $_GET["achternaam"];
+        $email = $_GET["email"];
+        $wachtwoord = $_GET["wachtwoord"];
+        $wachtwoord2 = $_GET["wachtwoord2"];
+        IF ($wachtwoord != $wachtwoord2) {
+            $wwGelijk = FALSE;
+        }
+        IF ($voornaam == "" || $achternaam == "" || $email == "" || $wachtwoord == "" || $wachtwoord2 == "") {
+            $veldenIngevuld = FALSE;
+        }
+        IF (strlen($voornaam) < 2 || strlen($achternaam < 2)) {
+            $naamLengte = FALSE;
+        }
+    }
+}
+?>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Formulier</title>
+    </head>
+    <body>
+        <h1>Formulier</h1>
+        <?php
+        IF (isset($wwGelijk)) {
+            echo("De wachtwoorden zijn niet gelijk.<br>");
+        }
+        IF (isset($veldenIngevuld)) {
+            echo("Vul alle velden in.<br>");
+        }
+        IF (isset($naamLengte)) {
+            echo("Vul een naam in.<br>");
+        }
+        ?>
+        <form method="get" action="index.php">
+            Voornaam: <input type="text" name="voornaam" value="<?php echo($voornaam); ?>" required="TRUE"><br>
+            Achternaam: <input type="text" name="achternaam" value="<?php echo($achternaam); ?>" required="TRUE"><br>
+            E-mailadres: <input type="email" name="email" value="<?php echo($email); ?>" required="TRUE"><br>
+            Wachtwoord: <input type="password" name="wachtwoord" required="TRUE"><br>
+            Herhaal wachtwoord: <input type="password" name="wachtwoord2" required="TRUE"><br>
+            <input type="submit" name="verwerk" value="OK">
+        </form>
+    </body>
+</html>
